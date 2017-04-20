@@ -271,7 +271,7 @@ resource "aws_instance" "elasticsearch" {
 	 connection {
    		type     = "ssh"
     	user     = "centos"
-		private_key = "${file("/home/diego/.ssh/id_rsa")}"
+		private_key = "${file("./ssh-key.private")}"
 		bastion_host = "${aws_instance.bastion.public_ip}"
 		timeout = "60m"
   }
@@ -302,7 +302,7 @@ resource "aws_instance" "kibana" {
 	 connection {
    		type     = "ssh"
     	user     = "centos"
-		private_key = "${file("/home/diego/.ssh/id_rsa")}"
+		private_key = "${file("./ssh-key.private")}"
 		bastion_host = "${aws_instance.bastion.public_ip}"
 		timeout = "60m"
   }
@@ -333,7 +333,7 @@ resource "aws_instance" "logstash" {
 	 connection {
    		type     = "ssh"
     	user     = "centos"
-		private_key = "${file("/home/diego/.ssh/id_rsa")}"
+		private_key = "${file("./ssh-key.private")}"
 		bastion_host = "${aws_instance.bastion.public_ip}"
 		host = "${aws_instance.logstash.private_ip}"
 		timeout = "60m"
@@ -365,7 +365,7 @@ resource "aws_instance" "kibanaproxy" {
 	 connection {
    		type     = "ssh"
     	user     = "centos"
-		private_key = "${file("/home/diego/.ssh/id_rsa")}"
+		private_key = "${file("./ssh-key.private")}"
 		bastion_host = "${aws_instance.bastion.public_ip}"
 		host = "${aws_instance.kibanaproxy.private_ip}"
 		timeout = "60m"

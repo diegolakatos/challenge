@@ -36,3 +36,21 @@ username: kibanaadmin
 password: challenge  
 
 To connect on the instances use private key provided on this repo (this key will only work in the machines created by the code of this repo)  
+
+  
+## Know issues:
+If you see the error:
+Error applying plan:
+
+1 error(s) occurred:
+
+* aws_instance.kibanaproxy: 1 error(s) occurred:
+
+* Script exited with non-zero exit status: 2
+
+Terraform does not automatically rollback in the face of errors.
+Instead, your Terraform state file has been partially updated with
+any resources that successfully completed. Please address the error
+above and apply again to incrementally change your infrastructure.
+
+just run terraform apply again

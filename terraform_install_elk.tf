@@ -282,7 +282,7 @@ resource "aws_instance" "elasticsearch" {
 		"sudo rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch",
 		"sudo yum install -y ansible",
 		"sudo echo '${aws_instance.elasticsearch.private_ip}' elasticsearch.lakatos.com",
-		"ansible-pull -U https://github.com/diegolakatos/desafio -i 'hosts.yml' -d /home/centos/ansible_execute install_elasticsearch.yml",
+		"ansible-pull -U https://github.com/diegolakatos/challenge -i 'hosts.yml' -d /home/centos/ansible_execute install_elasticsearch.yml",
 	]
 }
 }
@@ -313,7 +313,7 @@ resource "aws_instance" "kibana" {
 		"sudo yum update -y",
 		"sudo rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch",
 		"sudo yum install -y ansible",
-		"ansible-pull -U https://github.com/diegolakatos/desafio -i 'hosts.yml' -d /home/centos/ansible_execute install_kibana.yml",
+		"ansible-pull -U https://github.com/diegolakatos/challenge -i 'hosts.yml' -d /home/centos/ansible_execute install_kibana.yml",
 	]
 }
 } 
@@ -345,7 +345,7 @@ resource "aws_instance" "logstash" {
 		"sudo yum update -y",
 		"sudo rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch",
 		"sudo yum install -y ansible",
-		"ansible-pull -U https://github.com/diegolakatos/desafio -i 'hosts.yml' -d /home/centos/ansible_execute install_logstash.yml",
+		"ansible-pull -U https://github.com/diegolakatos/challenge -i 'hosts.yml' -d /home/centos/ansible_execute install_logstash.yml",
 	]
 }
 } 
@@ -376,7 +376,7 @@ resource "aws_instance" "kibanaproxy" {
 		"sudo yum install -y git epel-release",
 		"sudo yum update -y",
 		"sudo yum install -y ansible",
-		"ansible-pull -U https://github.com/diegolakatos/desafio -i 'hosts.yml' -d /home/centos/ansible_execute install_nginx.yml",
+		"ansible-pull -U https://github.com/diegolakatos/challenge -i 'hosts.yml' -d /home/centos/ansible_execute install_nginx.yml",
 	]
 }
 }

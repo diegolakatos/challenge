@@ -1,0 +1,53 @@
+---
+- hosts: aws
+  tasks:
+
+  - name: Configure repository
+    copy:
+      src: elasticsearch.repo
+      dest: /etc/yum.repos.d/elastic.repo
+      owner: root
+      group: root
+      mode: 0440
+    become: true
+
+  - name: Remove java 1.7
+    yum:
+      name: java-1.7.0-openjdk
+      state: removed
+    become: true
+
+  - name: Install java 1.8
+    yum:
+      name: java-1.8.0-openjdk
+      state: latest
+    become: true
+
+  - name: Install kibana
+    yum:
+      name: kibana
+      state: latest
+    become: true
+
+  - name: Configure kibana
+    replace:
+      dest: /etc/kibana/kibana.yml
+      regexp: '#server\.host:(.*)'
+      replace: 'server.host: "0.0.0.0"'
+    become: true
+
+  - name: Configure kibana
+    replace:
+      dest: /etc/kibana/kibana.yml
+      regexp: '#elasticsearch.url:(.*)'
+      replace: 'elasticsearch.url: "http://elasticsearch.lakatos:9200"'
+    become: true
+       
+
+
+
+
+  - name: Start Kibana
+    service: name=kibana state=restarted enabled=yes
+    become: true
+

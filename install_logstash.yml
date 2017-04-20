@@ -1,0 +1,95 @@
+---
+- hosts: aws
+  tasks:
+
+  - name: Configure repository
+    copy:
+      src: elasticsearch.repo
+      dest: /etc/yum.repos.d/elastic.repo
+      owner: root
+      group: root
+      mode: 0440
+    become: true
+
+  - name: Remove java 1.7
+    yum:
+      name: java-1.7.0-openjdk
+      state: removed
+    become: true
+
+  - name: Install java 1.8
+    yum:
+      name: java-1.8.0-openjdk
+      state: latest
+    become: true
+
+
+  - name: Configure rsyslog 01
+    replace:
+      dest: /etc/rsyslog.conf
+      regexp: '#\$ModLoad imudp'
+      replace: '$ModLoad imudp'
+    become: true
+
+  - name: Configure rsyslog 02
+    replace:
+      dest: /etc/rsyslog.conf
+      regexp: '#\$UDPServerRun 514'
+      replace: '$UDPServerRun 514'
+    become: true
+
+  - name: Configure rsyslog 03
+    replace:
+      dest: /etc/rsyslog.conf
+      regexp: '#\$ModLoad imtcp'
+      replace: '$ModLoad imtcp'
+    become: true
+
+  - name: Configure rsyslog 04
+    replace:
+      dest: /etc/rsyslog.conf
+      regexp: '#\$InputTCPServerRun 514'
+      replace: '$InputTCPServerRun 514'
+    become: true
+
+  - name: Configure rsyslog 05
+    copy:
+      src: 01-json-template.conf
+      dest: /etc/rsyslog.d/01-json-template.conf
+      owner: root
+      group: root
+      mode: 0644
+    become: true
+
+  - name: Configure rsyslog 06
+    copy:
+      src: 60-output.conf
+      dest: /etc/rsyslog.d/60-output.conf
+      owner: root
+      group: root
+      mode: 0644
+    become: true
+
+  - name: Install logstash
+    yum:
+      name: logstash
+      state: latest
+    become: true
+
+  - name: Configure logstash 01
+    copy:
+      src: 10-logstash.conf
+      dest: /etc/logstash/conf.d/10-logstash.conf
+      owner: logstash
+      group: root
+      mode: 0644
+    become: true
+
+
+  - name: Start rsyslog
+    service: name=rsyslog state=restarted enabled=yes
+    become: true
+
+  - name: Start logstash
+    service: name=logstash state=restarted enabled=yes
+    become: true

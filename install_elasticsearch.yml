@@ -1,0 +1,62 @@
+---
+- hosts: aws
+  tasks:
+
+  - name: Configure repository
+    copy:
+      src: elasticsearch.repo
+      dest: /etc/yum.repos.d/elastic.repo
+      owner: root
+      group: root
+      mode: 0440
+    become: true
+
+  - name: Remove java 1.7
+    yum:
+      name: java-1.7.0-openjdk
+      state: removed
+    become: true
+
+  - name: Install java 1.8
+    yum:
+      name: java-1.8.0-openjdk
+      state: latest
+    become: true
+
+  - name: Install elasticsearch
+    yum:
+      name: elasticsearch
+      state: latest
+    become: true
+
+  - name: Configure elasticsearch 01
+    copy:
+      src: elasticsearch.yml
+      dest: /etc/elasticsearch/elasticsearch.yml
+      owner: root
+      group: elasticsearch
+      mode: 0640
+    become: true
+
+
+  - name: Configure elasticsearch 02
+    file:
+      path: /etc/systemd/system/elasticsearch.service.d/
+      owner: root
+      group: root
+      state: directory
+      mode: 0755
+    become: true
+
+  - name: Configure elasticsearch 03
+    copy:
+      src: elasticsearch.conf
+      dest: /etc/systemd/system/elasticsearch.service.d/elasticsearch.conf
+      owner: root
+      group: root
+      mode: 0640
+    become: true
+
+  - name: Start elasticsearch
+    service: name=elasticsearch state=restarted enabled=yes
+    become: true

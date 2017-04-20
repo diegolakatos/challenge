@@ -54,3 +54,6 @@ any resources that successfully completed. Please address the error
 above and apply again to incrementally change your infrastructure.
 
 just execute the command  "terraform apply" one more time
+
+
+- It may take some minutes to logstash send the logs to elasticsearch, so if you open the kibana console just after the creation maybe you won't be able to create the indexes patterns, wait a couple of minutes and try again.

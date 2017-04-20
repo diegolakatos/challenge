@@ -53,4 +53,4 @@ Instead, your Terraform state file has been partially updated with
 any resources that successfully completed. Please address the error
 above and apply again to incrementally change your infrastructure.
 
-just run terraform apply again
+just execute the command  "terraform apply" one more time

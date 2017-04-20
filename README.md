@@ -26,6 +26,8 @@ variable "ip" {
   default = ["192.167.9.32/32", "10.0.0.0/16"]  
 }  
 
+### Verify if the ssh-keys have the correct permissions (only the owner can read or write, group and others should not have access)
+
 On the folder that contains the files from the repo just use the command  
 terraform apply  
 

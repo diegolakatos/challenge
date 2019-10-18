@@ -15,5 +15,5 @@ variable "subnet_count" {
 }
 
 variable "zone_name" {
-  default = "foobar"
+  default = "us-east-1a"
 }
